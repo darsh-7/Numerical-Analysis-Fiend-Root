@@ -101,45 +101,52 @@ namespace Numerical_Analysis
             }
             return c;
         }
-        public static double Simple_Fixed(string equation, double x0, double epsilon)
+        //public static double Simple_Fixed(string equation, double x0, double epsilon)
+        //{
+        //    Func<double, double> f = x => EvaluateMethod.EvaluateEquation(equation, x);
+        //    double c = x0, cT = 0; ;
+        //    double xn1 = f(c);
+
+        //    setupTable(method[2]);
+        //    int i = 0;
+
+
+        //    while (Math.Abs(xn1 - c) >= epsilon)
+        //    {
+        //        myDataRow = dataTable.NewRow();
+        //        myDataRow["i"] = i++;
+        //        myDataRow["F(X1)"] = f(c);
+        //        myDataRow["X1"] = c;
+        //        if (i != 1) myDataRow["%"] = (Math.Abs((c - cT) / c)) * 100;
+        //        dataTable.Rows.Add(myDataRow);
+
+        //        c = xn1;
+        //        xn1 = f(c);
+        //    }
+        //    return xn1;
+        //}
+        public static double FixedPointMethod(string equation, double x0, double tolerance)
         {
-            Func<double, double> f = x => EvaluateMethod.EvaluateEquation(equation, x);
-            double c = x0, cT = 0; ;
-            double xn1 = f(c);
+            Func<double, double> f =y=> EvaluateMethod.EvaluateEquation(equation, y);
+            Func<double, double> fprime = y => EvaluateMethod.EvaluateDerivative(equation, y);
 
-            setupTable(method[2]);
-            int i = 0;
+            double x = x0; // initial guess
+            double error = double.MaxValue;
 
 
-            while (Math.Abs(xn1 - c) >= epsilon)
+            int iteration = 1;
+            while (error > tolerance)
             {
-                myDataRow = dataTable.NewRow();
-                myDataRow["i"] = i++;
-                myDataRow["F(X1)"] = f(c);
-                myDataRow["X1"] = c;
-                if (i != 1) myDataRow["%"] = (Math.Abs((c - cT) / c)) * 100;
-                dataTable.Rows.Add(myDataRow);
+                double func = f(x);
+                double func_prime = fprime(x);
+                double x_new = x - func / func_prime;
+                error = Math.Abs(x_new - x);
+                x = x_new;
 
-                c = xn1;
-                xn1 = f(c);
+                iteration++;
             }
-            return xn1;
-        }
-        public static double SimpleFixedPoint(string equation, double x0, double tol , int maxIter = 100)
-        {
-            Func<double, double> g = y => EvaluateMethod.EvaluateEquation(equation, y);
 
-            double x = x0;
-            for (int i = 0; i < maxIter; i++)
-            {
-                double newX = g(x);
-                if (Math.Abs(newX - x) < tol)
-                {
-                    return newX;
-                }
-                x = newX;
-            }
-            throw new ArgumentException("Failed to converge");
+            return x;
         }
         public static double Newton(string equation, double x0, double epsilon)
         {

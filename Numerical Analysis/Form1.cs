@@ -162,7 +162,7 @@ namespace Numerical_Analysis
             else if (selectedMethod == method[1])
                 label6.Text = Method.false_position(equation, a, b, epsilon).ToString();
             else if (selectedMethod == method[2])
-                label6.Text = Method.SimpleFixedPoint(equation, a, epsilon).ToString();
+                label6.Text = Method.FixedPointMethod(equation, a, epsilon).ToString();
             else if (selectedMethod == method[3])
                 label6.Text = Method.Newton(equation, a, epsilon).ToString();
             else if (selectedMethod == method[4])
