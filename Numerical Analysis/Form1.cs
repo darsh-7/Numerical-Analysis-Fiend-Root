@@ -66,7 +66,7 @@ namespace Numerical_Analysis
 
             label3.Text = "Xl";
             label4.Text = "Xu";
-            label7.Text = "(";
+            label7.Text = "%";
 
             label1.Text = selectedMethod = method[0];
         }
@@ -83,7 +83,7 @@ namespace Numerical_Analysis
 
             label3.Text = "Xl";
             label4.Text = "Xu";
-            label7.Text = "(";
+            label7.Text = "%";
 
             label1.Text = selectedMethod = method[1];
         }
@@ -97,7 +97,7 @@ namespace Numerical_Analysis
             textBox4.Visible = true;
 
             label3.Text = "X0";
-            label7.Text = "(";
+            label7.Text = "%";
 
             label1.Text = selectedMethod = method[2];
         }
@@ -111,7 +111,7 @@ namespace Numerical_Analysis
             textBox4.Visible = true;
 
             label3.Text = "X0";
-            label7.Text = "(";
+            label7.Text = "%";
 
             label1.Text = selectedMethod = method[3];
         }
@@ -128,7 +128,7 @@ namespace Numerical_Analysis
 
             label3.Text = "X-1";
             label4.Text = "X0";
-            label7.Text = "(";
+            label7.Text = "%";
 
             label1.Text = selectedMethod = method[4];
 
