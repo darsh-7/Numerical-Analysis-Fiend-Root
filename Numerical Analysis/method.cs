@@ -101,32 +101,10 @@ namespace Numerical_Analysis
             }
             return c;
         }
-        //public static double Simple_Fixed(string equation, double x0, double epsilon)
-        //{
-        //    Func<double, double> f = x => EvaluateMethod.EvaluateEquation(equation, x);
-        //    double c = x0, cT = 0; ;
-        //    double xn1 = f(c);
-
-        //    setupTable(method[2]);
-        //    int i = 0;
-
-
-        //    while (Math.Abs(xn1 - c) >= epsilon)
-        //    {
-        //        myDataRow = dataTable.NewRow();
-        //        myDataRow["i"] = i++;
-        //        myDataRow["F(X1)"] = f(c);
-        //        myDataRow["X1"] = c;
-        //        if (i != 1) myDataRow["%"] = (Math.Abs((c - cT) / c)) * 100;
-        //        dataTable.Rows.Add(myDataRow);
-
-        //        c = xn1;
-        //        xn1 = f(c);
-        //    }
-        //    return xn1;
-        //}
         public static double FixedPointMethod(string equation, double x0, double tolerance)
         {
+            dataTable = new DataTable();
+
             Func<double, double> f =y=> EvaluateMethod.EvaluateEquation(equation, y);
             Func<double, double> fprime = y => EvaluateMethod.EvaluateDerivative(equation, y);
 
@@ -156,7 +134,7 @@ namespace Numerical_Analysis
             Func<double, double> f = x => EvaluateMethod.EvaluateEquation(equation, x);
             Func<double, double> fprime = x => EvaluateMethod.EvaluateDerivative(equation, x);
             double xn = x0 ;
-            double xn1 = xn - f(xn) / fprime(xn);
+            double xn1 = Math.Round(xn - f(xn) / fprime(xn),3);
             myDataRow = dataTable.NewRow();
             myDataRow["i"] = i++;
             myDataRow["F(X1)"] = f(xn);
@@ -167,7 +145,7 @@ namespace Numerical_Analysis
             while (Math.Abs(xn1 - xn) >= epsilon)
             {
                 xn = xn1;
-                xn1 = xn - f(xn) / fprime(xn);
+                xn1 = Math.Round(xn - f(xn) / fprime(xn),3);
                 myDataRow = dataTable.NewRow();
                 myDataRow["i"] = i++;
                 myDataRow["F(X1)"] = f(xn);
@@ -184,6 +162,8 @@ namespace Numerical_Analysis
         }
         public static double Secant(string equation, double x0, double x1, double epsilon)
         {
+            dataTable = new DataTable();
+
             setupTable(method[4]);
             int i = 0;
 
@@ -193,17 +173,6 @@ namespace Numerical_Analysis
             double xn2 = xn1 - f(xn1) * (xn1 - xn) / (f(xn1) - f(xn));
             while (Math.Abs((xn2 - xn1)/xn2) >= epsilon)
             {
-                //myDataRow = dataTable.NewRow();
-                //myDataRow["i"] = i++;
-                //myDataRow["F(X1)"] = f(xn);
-                //myDataRow["F(X2)"] = f(xn1);
-                //myDataRow["F(Xr)"] = f(xn2);
-                //myDataRow["X1"] = xn;
-                //myDataRow["X2"] = xn1;
-                //myDataRow["Xr"] = xn2;
-                //if (i != 1) myDataRow["%"] = (Math.Abs((xn - xn1) / xn1)) * 100;
-                //dataTable.Rows.Add(myDataRow);
-
                 xn = xn1;
                 xn1 = xn2;
                 xn2 = xn1 - f(xn1) * (xn1 - xn) / (f(xn1) - f(xn));
